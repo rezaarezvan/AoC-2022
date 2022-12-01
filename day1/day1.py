@@ -1,11 +1,14 @@
 X = [l.strip() for l in open('input')]
 
 Q = []
-for elf in ('\n'.join(X)).split('\n\n'):
-    q = 0
-    for x in elf.split('\n'):
-        q += int(x)
-    Q.append(q)
+q = 0
+
+for i in X:
+    if i == '':
+        Q.append(q)
+        q = 0
+    else:
+        q += int(i)
 
 Q.sort()
 
