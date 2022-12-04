@@ -1,6 +1,5 @@
 import re
 
-
 text = open('input').read()
 ans1 = ans2 = 0
 for line in text.splitlines():

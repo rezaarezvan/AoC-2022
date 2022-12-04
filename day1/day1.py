@@ -1,5 +1,6 @@
 X = [l.strip() for l in open('input')]
 
+
 Q = []
 q = 0
 

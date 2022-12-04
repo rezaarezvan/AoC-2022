@@ -1,15 +1,8 @@
 IN = [l.split() for l in open('input')]
 
-R = {
-    "A": 1, # rock
-    "B": 2, # ppaer
-    "C": 3, # sciss
-}
-Q = {
-    "X": 1,
-    "Y": 2,
-    "Z": 3
-}
+R = {"A": 1, "B": 2, "C": 3}
+
+Q = {"X": 1, "Y": 2, "Z": 3}
 
 S = 0
 for a, b in IN:
@@ -19,6 +12,7 @@ for a, b in IN:
         (a == "A" and b == "Y") or (a == "B" and b == "Z") or (a == "C" and b == "X")
     ):
         S += 6
+
     S += Q[b]
     
 print(S)

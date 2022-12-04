@@ -1,19 +1,19 @@
-with open("input", "r") as file:
-    data = file.read().splitlines()
+IN = [l.split() for l in open('input')]
 
-    points = {x : e + 1 for e, x in enumerate([chr(y) for y in range(97, 123)] + [chr(y) for y in range(65, 91)])}
-    p1, p2 = 0, 0
+s1 = 0
+s2 = 0
+points = {x : e + 1 for e, x in enumerate([chr(y) for y in range(97, 123)] + [chr(y) for y in range(65, 91)])}
 
-    for e, x in enumerate(data):
-        p1 += points[next(iter(set(x[:len(x) // 2]) & set(x[len(x) // 2:])))]
-        
-        if not e % 3:
-            badge = set(x)
-            continue
-        badge &= set(x)
+for i, x in enumerate(IN):
+    m = len(x[0]) // 2
+    s1 += points[next(iter(set(x[0][ : m]).intersection(set(x[0][m : ]))))]
 
-        if e % 3 == 2:
-            p2 += points[next(iter(badge))]
+    if not i % 3:
+        badge = set(x[0])
+        continue
+    badge &= set(x[0])
+    if i % 3 == 2:
+        s2 += points[next(iter(badge))]
 
-    print(p1)
-    print(p2)
+print(s1)
+print(s2)
