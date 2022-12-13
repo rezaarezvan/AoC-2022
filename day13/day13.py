@@ -5,38 +5,15 @@ DATA = [x for x in IN.split('\n')]
 
 
 def compare(left, right):
-    if isinstance(left, int) and isinstance(right, int):
-        if left < right:
-            return -1
-        elif left == right:
-            return 0
+    match left, right:
+        case int(), int():  return (left>right) - (left<right)
+        case int(), list(): return compare([left], right)
+        case list(), int(): return compare(left, [right])
+        case list(), list():
+            for z in map(compare, left, right):
+                if z: return z
+            return compare(len(left), len(right))
 
-        return 1
-    elif isinstance(left, list) and isinstance(right, list):
-        i = 0
-
-        while i < len(left) and i < len(right):
-            c = compare(left[i], right[i])
-
-            if c == -1:
-                return -1
-            if c == 1:
-                return 1
-            i += 1
-
-        if i == len(left) and i < len(right):
-            return -1
-
-        elif i == len(right) and i < len(left):
-            return 1
-
-        return 0
-
-    elif isinstance(left, int) and isinstance(right, list):
-        return compare([left], right)
-
-    else:
-        return compare(left, [right])
 
 # Part 1
 packets = []
@@ -60,7 +37,7 @@ print(part_1)
 packets.append([[2]])
 packets.append([[6]])
 
-packets = sorted(packets, key=cmp_to_key(lambda p1, p2: compare(p1, p2)))
+packets = sorted(packets, key=cmp_to_key(compare))
 
 part_2 = 1
 for i, p in enumerate(packets):
